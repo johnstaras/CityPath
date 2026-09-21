@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: citypaths-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: citypaths
+      POSTGRES_PASSWORD: citypaths_dev
+      POSTGRES_DB: citypaths
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U citypaths"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: citypaths-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://citypaths:citypaths_dev@db:5432/citypaths
+      JWT_SECRET: ${JWT_SECRET:-citypaths-dev-jwt-secret-2026}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-your-google-client-id}
+      # Public OSRM pedestrian instance (FOSSGIS). Swap for a self-hosted
+      # OSRM service when one is added — the URL scheme is identical.
+      OSRM_URL: ${OSRM_URL:-https://routing.openstreetmap.de/routed-foot}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  pgdata:

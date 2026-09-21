@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 1000" width="1180" height="1000" font-family="Arial, sans-serif">
+  <rect width="1180" height="1000" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowAi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0D9488"/>
+    </marker>
+    <marker id="arrowFail" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#DC2626"/>
+    </marker>
+  </defs>
+
+  <text x="590" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1E293B">CityPaths — Δημιουργία Διαδρομών με AI</text>
+  <text x="590" y="56" text-anchor="middle" font-size="13" fill="#64748B">Το μοντέλο επιλέγει ΤΙ και ΜΕ ΠΟΙΑ ΣΕΙΡΑ· η γεωμετρία, ο χρόνος και η προσβασιμότητα υπολογίζονται ντετερμινιστικά</text>
+
+  <!-- ═══════════ LANE A : offline catalogue ═══════════ -->
+  <rect x="30" y="80" width="1120" height="270" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="50" y="106" font-size="15" font-weight="bold" fill="#1E40AF">Α. Κατάλογος 100 διαδρομών — offline, ΧΩΡΙΣ κλειδί API</text>
+  <text x="50" y="126" font-size="12" fill="#64748B">Εκτελείται μία φορά: node scripts/seed-ai-routes.js · στατικά επιμελημένα δεδομένα, καμία κλήση μοντέλου</text>
+
+  <rect x="50" y="145" width="150" height="76" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="125" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E40AF">64 αξιοθέατα</text>
+  <text x="125" y="188" text-anchor="middle" font-size="11" fill="#334155">athens-landmarks.js</text>
+  <text x="125" y="205" text-anchor="middle" font-size="10" fill="#64748B">συντεταγμένες + προσβασιμότητα</text>
+
+  <rect x="50" y="240" width="150" height="76" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="125" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E40AF">100 σενάρια</text>
+  <text x="125" y="283" text-anchor="middle" font-size="11" fill="#334155">athens-routes.js</text>
+  <text x="125" y="300" text-anchor="middle" font-size="10" fill="#64748B">επιμελημένα: τίτλος + στάσεις</text>
+
+  <line x1="200" y1="183" x2="252" y2="215" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="200" y1="278" x2="252" y2="246" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="255" y="192" width="160" height="76" rx="8" fill="#FFFFFF" stroke="#334155" stroke-width="1.5"/>
+  <text x="335" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">seed-ai-routes.js</text>
+  <text x="335" y="235" text-anchor="middle" font-size="10" fill="#64748B">upsert POI + route</text>
+  <text x="335" y="251" text-anchor="middle" font-size="10" fill="#64748B">created_by = 'ai'</text>
+
+  <line x1="415" y1="230" x2="472" y2="230" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="475" y="192" width="150" height="76" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="550" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400E">OSRM (πεζή)</text>
+  <text x="550" y="235" text-anchor="middle" font-size="10" fill="#64748B">πραγματική διαδρομή</text>
+  <text x="550" y="251" text-anchor="middle" font-size="10" fill="#64748B">απόσταση + χρόνος</text>
+
+  <line x1="625" y1="230" x2="682" y2="230" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="685" y="192" width="165" height="76" rx="8" fill="#FFFFFF" stroke="#334155" stroke-width="1.5"/>
+  <text x="767" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">snapRoute()</text>
+  <text x="767" y="235" text-anchor="middle" font-size="10" fill="#64748B">γεωμετρία δρόμου</text>
+  <text x="767" y="251" text-anchor="middle" font-size="10" fill="#64748B">χρόνοι άφιξης ανά στάση</text>
+
+  <line x1="850" y1="230" x2="907" y2="230" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="910" y="180" width="215" height="100" rx="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+  <text x="1017" y="208" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">PostgreSQL + PostGIS</text>
+  <text x="1017" y="230" text-anchor="middle" font-size="11" fill="#334155">100 πλοηγήσιμες διαδρομές</text>
+  <text x="1017" y="248" text-anchor="middle" font-size="10" fill="#64748B">routes + route_pois</text>
+  <text x="1017" y="266" text-anchor="middle" font-size="10" fill="#64748B">μ.ό. 1.302 m · 370 στάσεις</text>
+
+  <!-- ═══════════ LANE B : runtime generation ═══════════ -->
+  <rect x="30" y="368" width="1120" height="464" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="50" y="394" font-size="15" font-weight="bold" fill="#0D9488">Β. Ζωντανή δημιουργία ανά χρήστη — πίσω από διακόπτη</text>
+  <text x="50" y="414" font-size="12" fill="#64748B">AI_ROUTE_GENERATION=on + διαπιστευτήρια παρόχου · αλλιώς το κουμπί δεν εμφανίζεται καν</text>
+
+  <rect x="50" y="440" width="140" height="82" rx="8" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5"/>
+  <text x="120" y="466" text-anchor="middle" font-size="12" font-weight="bold" fill="#075985">Χρήστης</text>
+  <text x="120" y="486" text-anchor="middle" font-size="10" fill="#64748B">θέση GPS</text>
+  <text x="120" y="502" text-anchor="middle" font-size="10" fill="#64748B">προφίλ κινητικότητας</text>
+  <text x="120" y="516" text-anchor="middle" font-size="10" fill="#64748B">(προαιρετικό αίτημα)</text>
+
+  <line x1="190" y1="481" x2="247" y2="481" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="250" y="440" width="175" height="96" rx="8" fill="#FFFFFF" stroke="#334155" stroke-width="1.5"/>
+  <text x="337" y="464" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">findNearby()</text>
+  <text x="337" y="483" text-anchor="middle" font-size="10" fill="#64748B">≤40 υποψήφια POI (1,2 km)</text>
+  <text x="337" y="499" text-anchor="middle" font-size="10" fill="#64748B">σκληρό φίλτρο προφίλ:</text>
+  <text x="337" y="514" text-anchor="middle" font-size="10" fill="#DC2626">wheelchair: no → εκτός</text>
+  <text x="337" y="529" text-anchor="middle" font-size="10" fill="#64748B">&lt; 3 υποψήφια → σφάλμα</text>
+
+  <line x1="425" y1="481" x2="484" y2="481" stroke="#0D9488" stroke-width="2" marker-end="url(#arrowAi)"/>
+
+  <!-- LLM box, inside trust boundary -->
+  <rect x="470" y="424" width="230" height="142" rx="12" fill="none" stroke="#0D9488" stroke-width="2" stroke-dasharray="7,4"/>
+  <text x="585" y="444" text-anchor="middle" font-size="11" font-weight="bold" fill="#0D9488">ΟΡΙΟ ΕΜΠΙΣΤΟΣΥΝΗΣ</text>
+
+  <rect x="487" y="454" width="196" height="104" rx="8" fill="#CCFBF1" stroke="#0D9488" stroke-width="1.8"/>
+  <text x="585" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">Γλωσσικό μοντέλο</text>
+  <text x="585" y="494" text-anchor="middle" font-size="10" fill="#334155">Groq (OpenAI-compatible)</text>
+  <text x="585" y="510" text-anchor="middle" font-size="10" fill="#334155">επιλέγει ids + σειρά (ζητούνται 3–6)</text>
+  <text x="585" y="526" text-anchor="middle" font-size="10" fill="#334155">γράφει τίτλο + περιγραφή</text>
+  <text x="585" y="546" text-anchor="middle" font-size="10" font-weight="bold" fill="#DC2626">ΔΕΝ παράγει δεδομένα</text>
+
+  <line x1="700" y1="481" x2="757" y2="481" stroke="#0D9488" stroke-width="2" marker-end="url(#arrowAi)"/>
+
+  <rect x="760" y="440" width="180" height="96" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+  <text x="850" y="464" text-anchor="middle" font-size="12" font-weight="bold" fill="#991B1B">Έλεγχος ταυτότητας</text>
+  <text x="850" y="483" text-anchor="middle" font-size="10" fill="#334155">κάθε id ∈ λίστα υποψηφίων;</text>
+  <text x="850" y="499" text-anchor="middle" font-size="10" fill="#334155">αλλιώς απορρίπτεται σιωπηλά</text>
+  <text x="850" y="514" text-anchor="middle" font-size="10" fill="#64748B">(φραγμός παραισθήσεων)</text>
+  <text x="850" y="529" text-anchor="middle" font-size="10" fill="#DC2626">&lt; 2 έγκυρα → νέα προσπάθεια</text>
+
+  <path d="M 850 536 L 850 580 L 130 580 L 130 597" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="862" y="562" font-size="10" fill="#64748B">≥ 2 έγκυρες στάσεις</text>
+
+  <!-- Row 2: persist first, then derive and gate (order of materialise()) -->
+  <rect x="50" y="600" width="160" height="80" rx="8" fill="#FFFFFF" stroke="#334155" stroke-width="1.5"/>
+  <text x="130" y="626" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">1. Αποθήκευση</text>
+  <text x="130" y="645" text-anchor="middle" font-size="10" fill="#64748B">routes + route_pois</text>
+  <text x="130" y="662" text-anchor="middle" font-size="10" fill="#64748B">created_by = 'ai'</text>
+
+  <line x1="210" y1="640" x2="247" y2="640" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="250" y="600" width="175" height="80" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="337" y="626" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400E">2. OSRM + snapRoute()</text>
+  <text x="337" y="645" text-anchor="middle" font-size="10" fill="#64748B">πραγματική πεζή πορεία</text>
+  <text x="337" y="662" text-anchor="middle" font-size="10" fill="#64748B">απόσταση · χρόνος · αφίξεις</text>
+
+  <line x1="425" y1="640" x2="462" y2="640" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="465" y="600" width="175" height="80" rx="8" fill="#F1F5F9" stroke="#64748B" stroke-width="1.5"/>
+  <text x="552" y="626" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">3. Όρια διαδρομής</text>
+  <text x="552" y="645" text-anchor="middle" font-size="10" fill="#64748B">≤ 7 km συνολικά</text>
+  <text x="552" y="662" text-anchor="middle" font-size="10" fill="#64748B">≤ maxRouteDistanceKm</text>
+
+  <line x1="640" y1="640" x2="677" y2="640" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="680" y="600" width="185" height="80" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="772" y="626" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400E">4. accessibilityScorer</text>
+  <text x="772" y="645" text-anchor="middle" font-size="10" fill="#64748B">βαθμός 0–100 vs προφίλ</text>
+  <text x="772" y="662" text-anchor="middle" font-size="10" fill="#DC2626">βαθμός 0 → απόρριψη</text>
+
+  <line x1="865" y1="640" x2="932" y2="640" stroke="#334155" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <rect x="935" y="590" width="190" height="100" rx="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+  <text x="1030" y="618" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">Νέα διαδρομή</text>
+  <text x="1030" y="640" text-anchor="middle" font-size="11" fill="#334155">παραμένει στη βάση</text>
+  <text x="1030" y="658" text-anchor="middle" font-size="10" fill="#64748B">πλοήγηση · σημεία ελέγχου</text>
+  <text x="1030" y="676" text-anchor="middle" font-size="10" fill="#64748B">αγαπημένα · στατιστικά</text>
+
+  <!-- Failure path: compensating delete, then one retry -->
+  <line x1="337" y1="680" x2="337" y2="713" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5,3" marker-end="url(#arrowFail)"/>
+  <line x1="552" y1="680" x2="552" y2="713" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5,3" marker-end="url(#arrowFail)"/>
+  <line x1="772" y1="680" x2="772" y2="713" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5,3" marker-end="url(#arrowFail)"/>
+
+  <rect x="250" y="716" width="615" height="56" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="557" y="739" text-anchor="middle" font-size="11" font-weight="bold" fill="#991B1B">Αποτυχία (OSRM, όρια ή βαθμός 0) → rollback: διαγραφή route_pois + route</text>
+  <text x="557" y="758" text-anchor="middle" font-size="10" fill="#334155">ο λόγος απόρριψης επιστρέφει στο μοντέλο ως ανατροφοδότηση</text>
+
+  <path d="M 865 744 L 1140 744 L 1140 434 L 670 434 L 670 451" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5,3" marker-end="url(#arrowFail)"/>
+  <text x="1134" y="428" text-anchor="end" font-size="10" fill="#DC2626">ΜΙΑ νέα προσπάθεια (MAX_ATTEMPTS = 2)</text>
+
+  <text x="50" y="802" font-size="11" fill="#64748B">Και οι δύο διαδρομές (Α και Β) καταλήγουν σε πανομοιότυπες εγγραφές με created_by = 'ai': λειτουργικά δεν ξεχωρίζουν από μια χειρόγραφη διαδρομή.</text>
+  <text x="50" y="819" font-size="11" fill="#64748B">Ο server δεν επιβάλλει το εύρος 3–6 που ζητείται από το μοντέλο: δέχεται ≥ 2 έγκυρες στάσεις, χωρίς άνω όριο.</text>
+
+  <!-- ═══════════ Data provenance ═══════════ -->
+  <rect x="30" y="850" width="1120" height="126" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="50" y="876" font-size="14" font-weight="bold" fill="#1E293B">Προέλευση δεδομένων προσβασιμότητας</text>
+
+  <rect x="50" y="888" width="250" height="70" rx="8" fill="#F1F5F9" stroke="#64748B" stroke-width="1.2"/>
+  <text x="175" y="912" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">OpenStreetMap / Wheelmap</text>
+  <text x="175" y="931" text-anchor="middle" font-size="10" fill="#64748B">7.781 POI · data_source = 'osm'</text>
+  <text x="175" y="948" text-anchor="middle" font-size="10" fill="#64748B">σκάλες · κράσπεδα · πλακόστρωτα</text>
+
+  <rect x="320" y="888" width="250" height="70" rx="8" fill="#F1F5F9" stroke="#64748B" stroke-width="1.2"/>
+  <text x="445" y="912" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">Επιμελημένα POI</text>
+  <text x="445" y="931" text-anchor="middle" font-size="10" fill="#64748B">74 POI (64 αξιοθέατα + 10 αρχικά) · 'admin'</text>
+  <text x="445" y="948" text-anchor="middle" font-size="10" fill="#64748B">συντηρητικές τιμές προσέγγισης</text>
+
+  <rect x="590" y="888" width="250" height="70" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="715" y="912" text-anchor="middle" font-size="11" font-weight="bold" fill="#991B1B">Γλωσσικό μοντέλο</text>
+  <text x="715" y="931" text-anchor="middle" font-size="10" fill="#334155">ΚΑΜΙΑ τιμή προσβασιμότητας</text>
+  <text x="715" y="948" text-anchor="middle" font-size="10" fill="#64748B">μόνο επιλογή + διατύπωση</text>
+
+  <rect x="860" y="888" width="265" height="70" rx="8" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5"/>
+  <text x="992" y="912" text-anchor="middle" font-size="11" font-weight="bold" fill="#166534">Βαθμός προσβασιμότητας</text>
+  <text x="992" y="931" text-anchor="middle" font-size="10" fill="#334155">υπολογίζεται σε κάθε αίτημα</text>
+  <text x="992" y="948" text-anchor="middle" font-size="10" fill="#64748B">ποτέ αποθηκευμένος, ποτέ από AI</text>
+</svg>

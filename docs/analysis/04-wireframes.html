@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityPaths - Lo-Fi Wireframes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Comic Sans MS', 'Segoe Print', cursive;
+            background: #f5f5f5;
+            padding: 40px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #555;
+        }
+        .screens {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+        .screen-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .screen-label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .phone {
+            width: 320px;
+            height: 580px;
+            border: 3px solid #333;
+            border-radius: 30px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 4px 4px 0 #ccc;
+        }
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+        }
+        .phone-content {
+            margin-top: 24px;
+            padding: 16px;
+            height: calc(100% - 74px);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .phone-content::-webkit-scrollbar {
+            display: none;
+        }
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #999;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .header {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            border-bottom: 2px dashed #ccc;
+            margin-bottom: 12px;
+        }
+        .btn {
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            margin: 6px 0;
+            font-size: 13px;
+            cursor: pointer;
+            background: #f9f9f9;
+        }
+        .btn-primary {
+            background: #e8e8e8;
+            font-weight: bold;
+        }
+        .btn-google {
+            background: #fff;
+            border: 2px solid #4285f4;
+            color: #4285f4;
+            font-weight: bold;
+        }
+        .input-field {
+            border: 2px solid #aaa;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 6px 0;
+            font-size: 12px;
+            color: #999;
+            background: #fafafa;
+        }
+        .card {
+            border: 2px solid #bbb;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 6px 0;
+            background: #fefefe;
+        }
+        .card-title {
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .card-sub {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .map-placeholder {
+            border: 2px dashed #aaa;
+            border-radius: 8px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 14px;
+            margin: 8px 0;
+            background: #f0f0f0;
+        }
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            border-top: 2px solid #ddd;
+            padding: 8px 0;
+            margin-top: auto;
+            font-size: 10px;
+            color: #888;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid #888;
+            border-radius: 4px;
+        }
+        .progress-bar {
+            height: 12px;
+            border: 2px solid #333;
+            border-radius: 6px;
+            margin: 8px 0;
+            background: #eee;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #ccc;
+            border-radius: 4px;
+        }
+        .tag {
+            display: inline-block;
+            border: 1.5px solid #aaa;
+            border-radius: 12px;
+            padding: 3px 10px;
+            font-size: 10px;
+            margin: 2px 4px 2px 0;
+            color: #666;
+        }
+        .stars {
+            font-size: 18px;
+            color: #ccc;
+            letter-spacing: 4px;
+        }
+        .modal-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 2px solid #333;
+            border-radius: 16px 16px 0 0;
+            padding: 16px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 12px;
+        }
+        .filter-row {
+            display: flex;
+            gap: 6px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+        }
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            border: 2px dashed #aaa;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #aaa;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #aaa;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: #aaa;
+        }
+        .accessibility-badge {
+            border: 1.5px solid #888;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 10px;
+            display: inline-block;
+            margin: 2px;
+            background: #f5f5f5;
+        }
+        .poi-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 12px;
+        }
+        .poi-dot {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .checkpoint-label {
+            font-size: 10px;
+            text-align: center;
+            color: #888;
+            margin: 4px 0;
+        }
+        .divider {
+            border-top: 1px dashed #ddd;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>CityPaths - Lo-Fi Wireframes</h1>
+    <p style="max-width:720px; margin:0 auto 16px; padding:8px 12px; border:1px dashed #999; background:#fffbe6; color:#333; font-size:14px; text-align:center;">Πρωτότυπα χαμηλής πιστότητας της φάσης ανάλυσης (Μάρτιος 2026). Η τελική εφαρμογή διαφέρει.</p>
+
+    <div class="screens">
+
+        <!-- Screen 1: Login -->
+        <div class="screen-container">
+            <div class="screen-label">1. Οθόνη Σύνδεσης</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                        <div class="logo-placeholder">Logo</div>
+                        <div style="font-size:22px; font-weight:bold; margin:8px 0;">CityPaths</div>
+                        <div style="font-size:11px; color:#888; text-align:center; margin-bottom:30px;">Εξατομικευμένες διαδρομές<br>για κάθε χρήστη</div>
+                        <div class="btn btn-google" style="width:100%;">G  Σύνδεση μέσω Google</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Profile Setup -->
+        <div class="screen-container">
+            <div class="screen-label">2. Ρύθμιση Προφίλ</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="header">Ρύθμιση Προφίλ</div>
+                    <div style="font-size:12px; color:#888; margin-bottom:8px;">Πείτε μας για εσάς ώστε να προσαρμόσουμε τις διαδρομές σας.</div>
+                    <div style="font-size:12px; font-weight:bold; margin-top:12px;">Ηλικιακή Ομάδα</div>
+                    <div class="input-field">Επιλέξτε ηλικιακή ομάδα ▼</div>
+                    <div style="font-size:12px; font-weight:bold; margin-top:12px;">Τύπος Κινητικότητας</div>
+                    <div class="btn" style="border-color:#4285f4; background:#e8f0fe;">🚶 Πεζός</div>
+                    <div class="btn">👴 Ηλικιωμένος</div>
+                    <div class="btn">🍼 Γονέας με καρότσι</div>
+                    <div class="btn">♿ Αναπηρικό αμαξίδιο</div>
+                    <div class="btn">🤰 Έγκυος</div>
+                    <div style="flex:1;"></div>
+                    <div class="btn btn-primary">Αποθήκευση</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Home / Browse Routes -->
+        <div class="screen-container">
+            <div class="screen-label">3. Αρχική / Περιήγηση Διαδρομών</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="header">CityPaths</div>
+                    <div style="font-size:12px; font-weight:bold;">Διαθέσιμος χρόνος:</div>
+                    <div class="filter-row">
+                        <div class="tag">1 ώρα</div>
+                        <div class="tag" style="background:#e0e0e0;">2 ώρες</div>
+                        <div class="tag">3+ ώρες</div>
+                    </div>
+                    <div style="font-size:12px; font-weight:bold;">Κατηγορία:</div>
+                    <div class="filter-row">
+                        <div class="tag">Ιστορικά</div>
+                        <div class="tag">Πολιτιστικά</div>
+                        <div class="tag">Φύση</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div style="font-size:12px; font-weight:bold; margin-bottom:4px;">Προτεινόμενες Διαδρομές</div>
+                    <div class="card">
+                        <div class="card-title">Ιστορικό κέντρο Αθήνας</div>
+                        <div class="card-sub">⏱ 1.5 ώρες · 📏 2.3 km · ♿ Προσβάσιμη</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Πλάκα & Αναφιώτικα</div>
+                        <div class="card-sub">⏱ 2 ώρες · 📏 3.1 km · ⚠ Σκαλιά</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Εθνικός Κήπος</div>
+                        <div class="card-sub">⏱ 1 ώρα · 📏 1.5 km · ♿ Προσβάσιμη</div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item"><div class="nav-icon"></div>Αρχική</div>
+                        <div class="nav-item"><div class="nav-icon"></div>Αγαπημένα</div>
+                        <div class="nav-item"><div class="nav-icon"></div>Προφίλ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 4: Route Details -->
+        <div class="screen-container">
+            <div class="screen-label">4. Λεπτομέρειες Διαδρομής</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="header">← Ιστορικό κέντρο Αθήνας</div>
+                    <div class="map-placeholder">[ Χάρτης Προεπισκόπηση ]</div>
+                    <div style="display:flex; gap:12px; margin:8px 0; font-size:11px;">
+                        <span>⏱ 1.5 ώρες</span>
+                        <span>📏 2.3 km</span>
+                        <span>♿ Προσβάσιμη</span>
+                    </div>
+                    <div style="font-size:12px; font-weight:bold; margin:4px 0;">Προσβασιμότητα:</div>
+                    <div>
+                        <span class="accessibility-badge">✓ Ράμπες</span>
+                        <span class="accessibility-badge">✓ Πεζοδρόμια</span>
+                        <span class="accessibility-badge">✗ Σκαλιά</span>
+                    </div>
+                    <div style="font-size:12px; font-weight:bold; margin:8px 0 4px;">Σημεία Ενδιαφέροντος:</div>
+                    <div class="poi-item"><div class="poi-dot"></div> Σύνταγμα</div>
+                    <div class="poi-item"><div class="poi-dot"></div> Εθνικός Κήπος</div>
+                    <div class="poi-item"><div class="poi-dot"></div> Ζάππειο</div>
+                    <div class="poi-item"><div class="poi-dot"></div> Ηρώδειο</div>
+                    <div style="flex:1;"></div>
+                    <div style="display:flex; gap:8px;">
+                        <div class="btn" style="flex:1;">♡ Αγαπημένο</div>
+                        <div class="btn btn-primary" style="flex:2;">Έναρξη Διαδρομής</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 5: Active Route / Navigation -->
+        <div class="screen-container">
+            <div class="screen-label">5. Ενεργή Διαδρομή (Πλοήγηση)</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="map-placeholder" style="height:250px; position:relative;">
+                        [ Χάρτης + Τρέχουσα Θέση ]
+                        <div style="position:absolute; bottom:8px; right:8px; font-size:20px;">📍</div>
+                    </div>
+                    <div style="font-size:11px; color:#888; margin-top:8px;">Πρόοδος:</div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:50%;"></div></div>
+                    <div style="display:flex; justify-content:space-between; font-size:9px; color:#aaa;">
+                        <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div style="font-size:12px; font-weight:bold;">Επόμενο: Ζάππειο</div>
+                    <div style="font-size:11px; color:#888;">📏 350m · ⏱ 5 λεπτά</div>
+                    <div style="flex:1;"></div>
+                    <div style="display:flex; justify-content:space-between; font-size:11px; color:#888; padding:4px 0;">
+                        <span>Υπολ. χρόνος: 45 λεπτά</span>
+                        <span>Υπολ. απόσταση: 1.2 km</span>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <div class="btn" style="flex:1; font-size:11px; color:#c00; border-color:#c00;">Τερματισμός</div>
+                        <div class="btn" style="flex:1; font-size:11px;">Παύση</div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item"><div class="nav-icon"></div>Αρχική</div>
+                        <div class="nav-item"><div class="nav-icon"></div>Αγαπημένα</div>
+                        <div class="nav-item"><div class="nav-icon"></div>Προφίλ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Checkpoint Re-suggestion -->
+        <div class="screen-container">
+            <div class="screen-label">6. Πρόταση Εναλλακτικής (Checkpoint)</div>
+            <div class="phone">
+                <div class="phone-content" style="position:relative;">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="map-placeholder" style="height:200px; opacity:0.4;">
+                        [ Χάρτης — φόντο ]
+                    </div>
+                    <div class="modal-overlay">
+                        <div style="font-size:14px; font-weight:bold; text-align:center; margin-bottom:4px;">📍 Σημείο Ελέγχου 50%</div>
+                        <div style="font-size:11px; color:#888; text-align:center; margin-bottom:10px;">Θέλετε να αλλάξετε διαδρομή;</div>
+                        <div class="card" style="border-color:#4285f4;">
+                            <div class="card-title">Εναλλακτική 1: Μοναστηράκι</div>
+                            <div class="card-sub">⏱ 40 λεπτά · 📏 1.1 km · ♿ Προσβάσιμη</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Εναλλακτική 2: Θησείο</div>
+                            <div class="card-sub">⏱ 35 λεπτά · 📏 0.9 km · ♿ Προσβάσιμη</div>
+                        </div>
+                        <div class="btn btn-primary" style="margin-top:8px;">Συνέχεια τρέχουσας διαδρομής</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 7: POI Detail -->
+        <div class="screen-container">
+            <div class="screen-label">7. Λεπτομέρειες Σημείου Ενδιαφέροντος</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="header">← Ζάππειο</div>
+                    <div class="map-placeholder" style="height:120px;">[ Φωτογραφία POI ]</div>
+                    <div style="font-size:12px; margin:8px 0;">Το Ζάππειο Μέγαρο είναι ένα νεοκλασικό κτίριο στο κέντρο της Αθήνας, δίπλα στον Εθνικό Κήπο.</div>
+                    <div style="font-size:12px; font-weight:bold; margin-top:8px;">Προσβασιμότητα:</div>
+                    <div>
+                        <span class="accessibility-badge">✓ Ράμπες</span>
+                        <span class="accessibility-badge">✓ Χώρος στάθμευσης ΑμεΑ</span>
+                    </div>
+                    <div style="font-size:12px; font-weight:bold; margin-top:12px;">Αξιολόγηση:</div>
+                    <div class="stars">★ ★ ★ ★ ☆</div>
+                    <div style="font-size:11px; color:#888;">(4.2 / 5 — 128 αξιολογήσεις)</div>
+                    <div style="flex:1;"></div>
+                    <div class="btn btn-primary">⭐ Αξιολογήστε αυτό το σημείο</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 8: Favorites -->
+        <div class="screen-container">
+            <div class="screen-label">8. Αγαπημένα</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="header">Αγαπημένα</div>
+                    <div class="card">
+                        <div class="card-title">♡ Ιστορικό κέντρο Αθήνας</div>
+                        <div class="card-sub">⏱ 1.5 ώρες · 📏 2.3 km · ♿ Προσβάσιμη</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">♡ Εθνικός Κήπος</div>
+                        <div class="card-sub">⏱ 1 ώρα · 📏 1.5 km · ♿ Προσβάσιμη</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">♡ Κεραμεικός & Γκάζι</div>
+                        <div class="card-sub">⏱ 2 ώρες · 📏 2.8 km · ⚠ Μερικώς προσβάσιμη</div>
+                    </div>
+                    <div style="flex:1;"></div>
+                    <div class="bottom-nav">
+                        <div class="nav-item"><div class="nav-icon"></div>Αρχική</div>
+                        <div class="nav-item"><div class="nav-icon" style="border-color:#333; background:#eee;"></div>Αγαπημένα</div>
+                        <div class="nav-item"><div class="nav-icon"></div>Προφίλ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 9: Profile & Stats -->
+        <div class="screen-container">
+            <div class="screen-label">9. Προφίλ & Στατιστικά</div>
+            <div class="phone">
+                <div class="phone-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 🔋</span>
+                    </div>
+                    <div class="header">Προφίλ</div>
+                    <div class="avatar">Φωτο</div>
+                    <div style="text-align:center; font-size:14px; font-weight:bold;">Γιάννης Π.</div>
+                    <div style="text-align:center; font-size:11px; color:#888; margin-bottom:12px;">giannis@gmail.com</div>
+                    <div>
+                        <span class="accessibility-badge">🚶 Πεζός</span>
+                        <span class="accessibility-badge">25-35 ετών</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div style="font-size:13px; font-weight:bold; margin:4px 0;">Στατιστικά</div>
+                    <div class="stat-row"><span>Ολοκληρωμένες διαδρομές</span><span>12</span></div>
+                    <div class="stat-row"><span>Συνολική απόσταση</span><span>28.5 km</span></div>
+                    <div class="stat-row"><span>Αγαπημένα σημεία</span><span>8</span></div>
+                    <div class="stat-row"><span>Αξιολογήσεις</span><span>15</span></div>
+                    <div style="flex:1;"></div>
+                    <div class="btn">Επεξεργασία Προφίλ</div>
+                    <div class="bottom-nav">
+                        <div class="nav-item"><div class="nav-icon"></div>Αρχική</div>
+                        <div class="nav-item"><div class="nav-icon"></div>Αγαπημένα</div>
+                        <div class="nav-item"><div class="nav-icon" style="border-color:#333; background:#eee;"></div>Προφίλ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

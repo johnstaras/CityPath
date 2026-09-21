@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Greek screen-reader texts for the MapLibre map (the SDK ships no Greek
+     translation). Android picks them from the device language, not from the
+     in-app language setting. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+    <string name="maplibre_mapActionDescription">Χάρτης. Μετακίνηση με σύρσιμο δύο δαχτύλων, μεγέθυνση με τσίμπημα.</string>
+    <string name="maplibre_attributionsIconContentDescription">Πληροφορίες προέλευσης χάρτη. Πατήστε για εμφάνιση.</string>
+    <string name="maplibre_compassContentDescription">Πυξίδα χάρτη. Πατήστε για επαναφορά του προσανατολισμού προς τον Βορρά.</string>
+    <string name="maplibre_myLocationViewContentDescription">Η θέση σας στον χάρτη.</string>
+    <string name="maplibre_attributionsDialogTitle">Προέλευση χάρτη</string>
+</resources>

@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  googleId  String   @unique @map("google_id")
+  email     String
+  name      String
+  avatarUrl String?  @map("avatar_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  profile          UserProfile?
+  mobilityProfiles UserMobilityProfile[]
+  ratings          PoiRating[]
+  favorites        Favorite[]
+  sessions         RouteSession[]
+  refreshTokens    RefreshToken[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model MobilityProfile {
+  id                    Int     @id @default(autoincrement())
+  name                  String
+  icon                  String
+  maxIncline            Float?  @map("max_incline")
+  avoidStairs           Boolean @default(false) @map("avoid_stairs")
+  avoidCobblestone      Boolean @default(false) @map("avoid_cobblestone")
+  minSidewalkWidth      Float?  @map("min_sidewalk_width")
+  requiresRamps         Boolean @default(false) @map("requires_ramps")
+  requiresTactilePaving Boolean @default(false) @map("requires_tactile_paving")
+  maxRouteDistanceKm    Float?  @map("max_route_distance_km")
+  restStopIntervalM     Int?    @map("rest_stop_interval_meters")
+  speedFactor           Float   @default(1.0) @map("speed_factor")
+
+  users UserMobilityProfile[]
+
+  @@map("mobility_profiles")
+}
+
+model UserProfile {
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique @map("user_id")
+  ageGroup  String?  @map("age_group")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_profiles")
+}
+
+model UserMobilityProfile {
+  userId            String @map("user_id")
+  mobilityProfileId Int    @map("mobility_profile_id")
+
+  user            User            @relation(fields: [userId], references: [id])
+  mobilityProfile MobilityProfile @relation(fields: [mobilityProfileId], references: [id])
+
+  @@id([userId, mobilityProfileId])
+  @@map("user_mobility_profiles")
+}
+
+model Route {
+  id                       Int      @id @default(autoincrement())
+  title                    String
+  description              String?
+  estimatedDurationMinutes Int      @map("estimated_duration_minutes")
+  distanceMeters           Int      @map("distance_meters")
+  category                 String
+  createdBy                String   @default("admin") @map("created_by")
+  // true only for routes composed live by the LLM (services/aiRouteService.js).
+  // The curated catalogue is also createdBy 'ai' but is static data, so this
+  // is what tells the two apart. Exposed to clients as `isLiveAi`.
+  generatedLive            Boolean  @default(false) @map("generated_live")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+  // geometry column added via raw SQL (PostGIS LINESTRING)
+
+  pois      RoutePoi[]
+  favorites Favorite[]
+  sessions  RouteSession[]
+
+  @@map("routes")
+}
+
+model PathBarrier {
+  id            Int      @id @default(autoincrement())
+  osmId         BigInt?  @map("osm_id")
+  osmType       String   @map("osm_type")
+  kind          String
+  hasRamp       Boolean  @default(false) @map("has_ramp")
+  kerbType      String?  @map("kerb_type")
+  surface       String?
+  tactilePaving Boolean  @default(false) @map("tactile_paving")
+  stepCount     Int?     @map("step_count")
+  updatedAt     DateTime @default(now()) @map("updated_at")
+  // geometry column added via raw SQL (PostGIS LINESTRING or POINT)
+
+  @@unique([osmType, osmId])
+  @@map("path_barriers")
+}
+
+model Poi {
+  id               Int      @id @default(autoincrement())
+  osmId            BigInt?  @map("osm_id")
+  name             String
+  description      String?
+  category         String?
+  photoUrl         String?  @map("photo_url")
+  wheelchair       String   @default("unknown")
+  surface          String?
+  hasRamp          Boolean  @default(false) @map("has_ramp")
+  hasTactilePaving Boolean  @default(false) @map("has_tactile_paving")
+  hasRestArea      Boolean  @default(false) @map("has_rest_area")
+  openingHours     String?  @map("opening_hours")
+  dataSource       String   @default("admin") @map("data_source")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  // geometry column added via raw SQL (PostGIS POINT)
+
+  routes  RoutePoi[]
+  ratings PoiRating[]
+
+  @@map("pois")
+}
+
+model RoutePoi {
+  routeId                 Int @map("route_id")
+  poiId                   Int @map("poi_id")
+  orderIndex              Int @map("order_index")
+  estimatedArrivalMinutes Int @map("estimated_arrival_minutes")
+
+  route Route @relation(fields: [routeId], references: [id])
+  poi   Poi   @relation(fields: [poiId], references: [id])
+
+  @@id([routeId, poiId])
+  @@map("route_pois")
+}
+
+model PoiRating {
+  id                  Int      @id @default(autoincrement())
+  poiId               Int      @map("poi_id")
+  userId              String   @map("user_id")
+  rating              Int
+  accessibilityRating Int      @map("accessibility_rating")
+  comment             String?
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  poi  Poi  @relation(fields: [poiId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  // One rating per user per place; re-rating updates the row (see poiRepository.addRating).
+  @@unique([userId, poiId])
+  @@map("poi_ratings")
+}
+
+model Favorite {
+  userId    String   @map("user_id")
+  routeId   Int      @map("route_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user  User  @relation(fields: [userId], references: [id])
+  route Route @relation(fields: [routeId], references: [id])
+
+  @@id([userId, routeId])
+  @@map("favorites")
+}
+
+model RouteSession {
+  id                    Int       @id @default(autoincrement())
+  userId                String    @map("user_id")
+  routeId               Int       @map("route_id")
+  startedAt             DateTime  @default(now()) @map("started_at")
+  completedAt           DateTime? @map("completed_at")
+  progressPercent       Int       @default(0) @map("progress_percent")
+  actualDurationMinutes Int       @default(0) @map("actual_duration_minutes")
+  distanceWalkedMeters  Int       @default(0) @map("distance_walked_meters")
+  status                String    @default("active")
+
+  user  User  @relation(fields: [userId], references: [id])
+  route Route @relation(fields: [routeId], references: [id])
+
+  @@map("route_sessions")
+}

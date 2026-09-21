@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Environment files — never commit real credentials
+.env
+.env.*
+!.env.example
+
+# Firebase / Google config — create your own, see README
+google-services.json
+GoogleService-Info.plist
+
+# Android signing
+*.keystore
+*.jks
+
+# Android / Gradle build output
+mobile/android/.gradle/
+mobile/android/app/build/
+mobile/android/build/
+mobile/android/local.properties
+mobile/android/.cxx/
+*.apk
+*.aab
+
+# iOS
+mobile/ios/Pods/
+mobile/ios/build/
+mobile/ios/*.xcworkspace/xcuserdata/
+
+# React Native / Metro
+mobile/.metro-health-check*
+.metro/
+*.jsbundle
+
+# Prisma generated client
+server/generated/
+server/prisma/generated/
+
+# Logs and caches
+*.log
+npm-debug.log*
+yarn-error.log*
+.eslintcache
+coverage/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
