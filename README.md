@@ -367,6 +367,7 @@ for a 4.5:1 contrast ratio in both themes.
 | `docs/analysis/08-map-navigation-ui.md` | Map and navigation UI, MapLibre workarounds |
 | `docs/analysis/01-related-apps.md` · `02-comparison-table.md` | Comparison with existing apps |
 | `docs/analysis/photo-credits.md` | Photo sources and licences |
+| `docs/evaluation/` | Scripts behind the evaluation numbers: latency, scorer consistency, walk simulation, contrast, data volumes |
 | `server/README.md` | API endpoints, error codes, database details |
 | `mobile/README.md` | App structure, scripts, conventions |
 
